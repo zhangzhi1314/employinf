@@ -1,15 +1,22 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <el-form label-position="right" label-width="80px" :model="loginform">
-        <el-form-item>
-          <el-input placeholder="用户名"></el-input>
+      <el-form label-position="right" label-width="80px" :model="loginForm">
+        <el-form-item prop="userName">
+          <el-input
+            prefix-icon="el-icon-user-solid"
+            v-model="loginForm.userName"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="passWord">
+          <el-input
+            prefix-icon="el-icon-view"
+            type="password"
+            v-model="loginForm.passWord"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input placeholder="密码" type="password"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary">登录</el-button>
+          <el-button type="primary" @click.native="onLogin">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -19,8 +26,21 @@
 export default {
   data() {
     return {
-      loginform: {},
+      loginForm: {
+        userName: "admin",
+        passWord: "",
+      },
     };
+  },
+  methods: {
+    async onLogin() {
+      console.log(this.loginForm);
+      const { data: res } = await this.$http.login(
+        this.loginForm.userName,
+        this.loginForm.passWord
+      );
+      console.log(res);
+    },
   },
 };
 </script>
