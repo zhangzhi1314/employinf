@@ -5,14 +5,15 @@ Mock.mock('login','post', function (inf) {
         body: msg
     } = inf
     const a = JSON.parse(msg)
-    console.log(a);
     if (a.params.username === "admin" && a.params.password === "123456") {
         return Mock.mock({
             data: {
                 id: 0,
                 username: 'admin',
                 email: '2036241878@qq.com',
-                password:a.password
+                password:a.password,
+                role:"teacher",
+                token:'123456'
             },
             meta: {
                 msg: '登录成功',

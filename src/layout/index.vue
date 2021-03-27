@@ -48,7 +48,8 @@
             </el-dropdown>
           </div>
         </el-header>
-        <el-main> <router-view/></el-main>
+        <el-main>{{this.$store.state.accessRouterMap}}<router-view></router-view></el-main>
+        <el-button @click="$router.push('/uploadInfo')">click</el-button>
       </el-container>
     </el-container>
   </div>
@@ -72,6 +73,9 @@ export default {
     logOut() {
       
       window.sessionStorage.clear();
+      //退出时，将vuex里的值清空
+      this.$store.commit('SET_TOKEN','');
+      this.$store.commit('SET_ROLES','');
       this.$router.push("/login");
       this.$message({
         duration: 1000,
